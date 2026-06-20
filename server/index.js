@@ -3,9 +3,15 @@ const cors = require('cors');
 const { load, save, newId } = require('./db');
 
 const app = express();
-const PORT = 3001;
+const PORT = process.env.PORT || 3001;
 
-app.use(cors());
+app.use(cors({
+  origin: [
+    'http://localhost:3000',
+    'https://mifa23mg.github.io',
+  ],
+  credentials: true,
+}));
 app.use(express.json());
 
 // ─── STUDENTS ────────────────────────────────────────────────────────────────

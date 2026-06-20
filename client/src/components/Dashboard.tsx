@@ -77,7 +77,7 @@ export default function Dashboard({ onAddClass, onEditClass }: Props) {
                 onClick={() => setSelectedDate(day)}
                 className={`flex flex-col items-center py-2 px-1 rounded-xl transition-all ${
                   isSelected
-                    ? 'bg-indigo-600 text-white shadow-lg shadow-indigo-500/30'
+                    ? 'bg-indigo-600/30 ring-1 ring-indigo-500 text-white'
                     : isToday
                     ? 'bg-white/10 text-white'
                     : 'hover:bg-white/5 text-gray-400'
@@ -88,7 +88,7 @@ export default function Dashboard({ onAddClass, onEditClass }: Props) {
                   {format(day, 'd')}
                 </span>
                 {hasCls && (
-                  <div className={`w-1.5 h-1.5 rounded-full mt-0.5 ${isSelected ? 'bg-white/60' : 'bg-indigo-400'}`} />
+                  <div className={`w-1.5 h-1.5 rounded-full mt-0.5 ${isSelected ? 'bg-indigo-400' : 'bg-indigo-400'}`} />
                 )}
               </button>
             );

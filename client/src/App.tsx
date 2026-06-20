@@ -75,12 +75,14 @@ export default function App() {
         {tab === 'dashboard' ? (
           <>
             <StudentFilter />
+            <div className="flex-1" />
             <button
               onClick={() => setShowManageStudents(true)}
-              className="p-2 rounded-xl hover:bg-white/10 text-gray-400 hover:text-white transition-colors"
-              title="Manage Students"
+              className="flex items-center gap-1.5 px-3 py-2 rounded-xl hover:bg-white/10 text-gray-400 hover:text-white transition-colors"
+              title="New Student"
             >
               <Users size={18} />
+              <span className="text-sm font-medium">New Student</span>
             </button>
           </>
         ) : (

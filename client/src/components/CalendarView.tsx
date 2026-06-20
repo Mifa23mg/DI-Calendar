@@ -84,8 +84,6 @@ export default function CalendarView({ onAddClass, onEditClass }: Props) {
   const selectedGroups = groupClasses(selectedClasses);
 
   const refreshDay = () => {
-    if (!selectedDate) return;
-    const dateStr = format(selectedDate, 'yyyy-MM-dd');
     fetchAll(
       format(startOfMonth(currentMonth), 'yyyy-MM-dd'),
       format(endOfMonth(currentMonth), 'yyyy-MM-dd')

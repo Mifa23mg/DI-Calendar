@@ -1,14 +1,19 @@
 import { useState } from 'react';
-import { LayoutDashboard, Calendar, Users } from 'lucide-react';
+import { LayoutDashboard, Calendar, Trophy, Users, LogOut } from 'lucide-react';
 import { useApp } from './hooks/useApp';
+import { AppProvider } from './hooks/useApp';
+import { useAuth } from './hooks/useAuth';
+import { AuthProvider } from './hooks/useAuth';
 import Dashboard from './components/Dashboard';
 import CalendarView from './components/CalendarView';
+import NationalsCalendar from './components/NationalsCalendar';
 import AddClassModal from './components/AddClassModal';
 import ManageStudentsModal from './components/ManageStudentsModal';
 import StudentFilter from './components/StudentFilter';
+import LoginPage from './pages/LoginPage';
 import type { ClassEntry } from './types';
 
-type Tab = 'dashboard' | 'calendar';
+type Tab = 'dashboard' | 'calendar' | 'nationals';
 
 const CLASS_TYPE_COLORS: Record<string, string> = {
   ct1: '#f472b6',
@@ -20,13 +25,15 @@ const CLASS_TYPE_COLORS: Record<string, string> = {
   ct7: '#2dd4bf',
 };
 
-export default function App() {
+function AppShell() {
   const { loading, classTypes } = useApp();
+  const { user, logout } = useAuth();
   const [tab, setTab] = useState<Tab>('dashboard');
   const [showAddClass, setShowAddClass] = useState(false);
   const [addClassDate, setAddClassDate] = useState<string | undefined>();
   const [editEntry, setEditEntry] = useState<ClassEntry | undefined>();
   const [showManageStudents, setShowManageStudents] = useState(false);
+  const [showLogoutConfirm, setShowLogoutConfirm] = useState(false);
 
   const openAddClass = (date?: string) => {
     setEditEntry(undefined);
@@ -60,17 +67,26 @@ export default function App() {
 
   return (
     <div className="h-screen bg-surface-900 flex flex-col max-w-2xl mx-auto overflow-hidden">
-      {/* Header — title only */}
+      {/* Header */}
       <header
-        className="flex-shrink-0 flex items-center justify-center border-b border-white/10"
+        className="flex-shrink-0 flex items-center justify-between px-4 border-b border-white/10"
         style={{ height: '120px' }}
       >
+        <div className="w-10" />
         <h1 className="text-white font-bold" style={{ fontSize: '40px', lineHeight: 1 }}>
           DI Class Calendar
         </h1>
+        <button
+          onClick={() => setShowLogoutConfirm(true)}
+          title={`Signed in as ${user?.username}`}
+          className="flex flex-col items-center justify-center gap-0.5 w-10 self-center text-gray-400 hover:text-white transition-colors"
+        >
+          <LogOut size={18} />
+          <span className="text-[10px] font-medium">Logout</span>
+        </button>
       </header>
 
-      {/* Controls bar — Dashboard: student filter / Calendar: class type legend */}
+      {/* Controls bar */}
       <div className="flex-shrink-0 flex items-center gap-2 px-4 py-4 border-b border-white/10">
         {tab === 'dashboard' ? (
           <>
@@ -85,6 +101,10 @@ export default function App() {
               <span className="text-sm font-medium">New Student</span>
             </button>
           </>
+        ) : tab === 'nationals' ? (
+          <div className="flex items-center">
+            <span className="text-sm font-bold text-gray-200">NYCDA - Phoenix, Az 2016</span>
+          </div>
         ) : (
           <div className="flex items-center gap-4 overflow-x-auto scrollbar-none">
             {classTypes.map(ct => (
@@ -104,8 +124,10 @@ export default function App() {
       <main className="flex-1 overflow-hidden flex flex-col">
         {tab === 'dashboard' ? (
           <Dashboard onAddClass={openAddClass} onEditClass={openEditClass} />
-        ) : (
+        ) : tab === 'calendar' ? (
           <CalendarView onAddClass={openAddClass} onEditClass={openEditClass} />
+        ) : (
+          <NationalsCalendar />
         )}
       </main>
 
@@ -114,6 +136,7 @@ export default function App() {
         {([
           { id: 'dashboard', label: 'Dashboard', Icon: LayoutDashboard },
           { id: 'calendar', label: 'Calendar', Icon: Calendar },
+          { id: 'nationals', label: 'Nationals', Icon: Trophy },
         ] as { id: Tab; label: string; Icon: React.ElementType }[]).map(({ id, label, Icon }) => (
           <button
             key={id}
@@ -139,6 +162,49 @@ export default function App() {
       {showManageStudents && (
         <ManageStudentsModal onClose={() => setShowManageStudents(false)} />
       )}
+
+      {/* Logout confirmation */}
+      {showLogoutConfirm && (
+        <div className="fixed inset-0 z-50 flex items-center justify-center px-4 animate-fade-in">
+          <div className="absolute inset-0 bg-black/60 backdrop-blur-sm" onClick={() => setShowLogoutConfirm(false)} />
+          <div className="relative bg-surface-800 rounded-2xl border border-white/10 shadow-2xl p-6 w-full max-w-xs animate-slide-up">
+            <h3 className="text-white font-semibold text-base text-center">Sign out</h3>
+            <p className="text-gray-400 text-sm text-center mt-2 mb-6">Are you sure you want to logout?</p>
+            <div className="flex gap-3">
+              <button
+                onClick={() => setShowLogoutConfirm(false)}
+                className="flex-1 py-2.5 rounded-xl bg-surface-600 text-gray-300 hover:bg-surface-500 font-medium text-sm transition-colors"
+              >
+                Cancel
+              </button>
+              <button
+                onClick={logout}
+                className="flex-1 py-2.5 rounded-xl bg-indigo-600 hover:bg-indigo-500 text-white font-medium text-sm transition-colors"
+              >
+                Continue
+              </button>
+            </div>
+          </div>
+        </div>
+      )}
     </div>
+  );
+}
+
+function AuthGate() {
+  const { user } = useAuth();
+  if (!user) return <LoginPage />;
+  return (
+    <AppProvider>
+      <AppShell />
+    </AppProvider>
+  );
+}
+
+export default function App() {
+  return (
+    <AuthProvider>
+      <AuthGate />
+    </AuthProvider>
   );
 }

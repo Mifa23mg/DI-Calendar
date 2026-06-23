@@ -21,7 +21,9 @@ export interface ClassEntry {
   student_id: number;
   teacher_id: number | null;
   class_type_id: number | null;
-  title: string | null;
+  title: string | null;      // event name (nationals) or class label
+  location: string | null;   // venue (nationals only)
+  notes: string | null;
   date: string; // YYYY-MM-DD
   start_time: string; // HH:MM
   end_time: string; // HH:MM
@@ -41,6 +43,8 @@ export interface ClassFormData {
   teacher_id: string | null;
   class_type_id: string | null;
   title: string;
+  location: string;
+  notes: string;
   date: string;
   start_time: string;
   end_time: string;

@@ -5,6 +5,7 @@ const { v4: uuidv4 } = require('uuid');
 const DB_PATH = path.join(__dirname, 'data.json');
 
 const DEFAULT_DATA = {
+  users: [],
   students: [],
   teachers: [
     { id: 't1', name: 'Lynda', created_at: new Date().toISOString() },
@@ -29,7 +30,9 @@ function load() {
     return DEFAULT_DATA;
   }
   try {
-    return JSON.parse(fs.readFileSync(DB_PATH, 'utf8'));
+    const data = JSON.parse(fs.readFileSync(DB_PATH, 'utf8'));
+    if (!data.users) data.users = [];
+    return data;
   } catch {
     return { ...DEFAULT_DATA };
   }

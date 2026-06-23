@@ -2,9 +2,22 @@ import type { ClassEntry, ClassFormData, Student, Teacher, ClassType } from '../
 
 const BASE = (import.meta.env.VITE_API_URL ?? '') + '/api';
 
+function getToken(): string | null {
+  try {
+    const stored = localStorage.getItem('di_auth');
+    return stored ? JSON.parse(stored).token : null;
+  } catch {
+    return null;
+  }
+}
+
 async function request<T>(path: string, options?: RequestInit): Promise<T> {
+  const token = getToken();
   const res = await fetch(BASE + path, {
-    headers: { 'Content-Type': 'application/json' },
+    headers: {
+      'Content-Type': 'application/json',
+      ...(token ? { Authorization: `Bearer ${token}` } : {}),
+    },
     ...options,
   });
   if (!res.ok) {

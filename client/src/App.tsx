@@ -103,7 +103,7 @@ function AppShell() {
           </>
         ) : tab === 'nationals' ? (
           <div className="flex items-center">
-            <span className="text-sm font-bold text-gray-200">NYCDA - Phoenix, Az 2016</span>
+            <span className="text-sm font-bold text-gray-200">NYCDA - Phoenix, Az 2026</span>
           </div>
         ) : (
           <div className="flex items-center gap-4 overflow-x-auto scrollbar-none">

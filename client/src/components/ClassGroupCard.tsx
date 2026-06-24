@@ -108,7 +108,7 @@ export default function ClassGroupCard({ entries, onEdit, onDeleted }: Props) {
               <div className="flex items-center gap-1.5">
                 <div className="w-2.5 h-2.5 rounded-full flex-shrink-0" style={{ backgroundColor: '#D4AF37' }} />
                 <span className="text-xs text-gray-300 font-medium">
-                  {['2026-06-25', '2026-06-26', '2026-06-27'].includes(rep.date) ? 'Outstanding Dancers' : 'All Company'}
+                  {['2026-06-25', '2026-06-26', '2026-06-27', '2026-06-28'].includes(rep.date) ? 'Outstanding Dancers' : 'All Company'}
                 </span>
               </div>
             ) : (

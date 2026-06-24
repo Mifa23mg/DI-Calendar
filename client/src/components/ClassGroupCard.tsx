@@ -102,12 +102,14 @@ export default function ClassGroupCard({ entries, onEdit, onDeleted }: Props) {
               <span className="italic">{rep.notes}</span>
             </div>
           )}
-          {/* Students — show "All Students" for nationals, individual names for regular */}
+          {/* Students — show student label for nationals, individual names for regular */}
           <div className="flex flex-wrap gap-x-3 gap-y-1 pt-0.5">
             {isNationals ? (
               <div className="flex items-center gap-1.5">
                 <div className="w-2.5 h-2.5 rounded-full flex-shrink-0" style={{ backgroundColor: '#D4AF37' }} />
-                <span className="text-xs text-gray-300 font-medium">All Students</span>
+                <span className="text-xs text-gray-300 font-medium">
+                  {['2026-06-25', '2026-06-26', '2026-06-27'].includes(rep.date) ? 'OD Students' : 'All Students'}
+                </span>
               </div>
             ) : (
               entries.map(entry => (

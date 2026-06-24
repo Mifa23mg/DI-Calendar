@@ -73,7 +73,7 @@ function AppShell() {
         style={{ height: '120px' }}
       >
         <div className="w-10" />
-        <h1 className="text-white font-bold text-2xl sm:text-4xl whitespace-nowrap" style={{ fontFamily: 'Genos, sans-serif', lineHeight: 1 }}>
+        <h1 className="text-white font-bold whitespace-nowrap" style={{ fontFamily: 'Michroma, sans-serif', lineHeight: 1, fontSize: 'clamp(24px, 5vw, 44px)' }}>
           DI Class Calendar
         </h1>
         <button

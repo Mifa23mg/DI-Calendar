@@ -43,8 +43,8 @@ export default function LoginPage() {
     <div className="min-h-screen bg-surface-900 flex flex-col items-center justify-center px-4">
       {/* Header */}
       <div className="mb-8 text-center">
-        <h1 className="text-3xl font-bold text-white" style={{ fontFamily: 'Genos, sans-serif' }}>DI Class Calendar</h1>
-        <p className="text-gray-400 mt-1 text-sm">Dance competition schedule manager</p>
+        <h1 className="text-3xl font-bold text-white" style={{ fontFamily: 'Michroma, sans-serif', fontSize: '44px', lineHeight: 1 }}>DI Class Calendar</h1>
+        <p className="text-gray-400 text-sm" style={{ marginTop: '10px' }}>Dance competition schedule manager</p>
       </div>
 
       <div className="w-full max-w-sm">

@@ -73,7 +73,7 @@ function AppShell() {
         style={{ height: '120px' }}
       >
         <div className="w-10" />
-        <h1 className="text-white font-bold" style={{ fontSize: '40px', lineHeight: 1 }}>
+        <h1 className="text-white font-bold text-2xl sm:text-4xl whitespace-nowrap" style={{ fontFamily: 'Audiowide, sans-serif', lineHeight: 1 }}>
           DI Class Calendar
         </h1>
         <button

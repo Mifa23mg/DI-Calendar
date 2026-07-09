@@ -1,5 +1,5 @@
 import { useState } from 'react';
-import { LayoutDashboard, Calendar, Trophy, Users, LogOut } from 'lucide-react';
+import { LayoutDashboard, Calendar, Users, LogOut } from 'lucide-react';
 import { useApp } from './hooks/useApp';
 import { AppProvider } from './hooks/useApp';
 import { useAuth } from './hooks/useAuth';

@@ -136,7 +136,6 @@ function AppShell() {
         {([
           { id: 'dashboard', label: 'Dashboard', Icon: LayoutDashboard },
           { id: 'calendar', label: 'Calendar', Icon: Calendar },
-          { id: 'nationals', label: 'Nationals', Icon: Trophy },
         ] as { id: Tab; label: string; Icon: React.ElementType }[]).map(({ id, label, Icon }) => (
           <button
             key={id}
